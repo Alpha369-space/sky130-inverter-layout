@@ -1,0 +1,6 @@
+** sch_path: /home/pavi369/inverter/xschem/inverter.sch
+.subckt inverter vdd out in vss
+*.PININFO vdd:B in:I out:I vss:B
+XM1 out in vss vss sky130_fd_pr__nfet_01v8 L=0.18 W=4.5 nf=3
+XM2 out in vdd VDD sky130_fd_pr__pfet_01v8 L=0.18 W=3 nf=3
+.ends
