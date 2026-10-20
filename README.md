@@ -82,7 +82,7 @@ magic
 
 Magic opens the layout window. It shows `Technology: minimum` at this point because the SKY130A PDK is not loaded yet.
 
-![Magic launch](images/01_magic_launch.png)
+<img width="1850" height="1113" alt="Screenshot 2026-10-19 151945" src="https://github.com/user-attachments/assets/7f05264a-9a53-4162-953b-d65ccccda016" />
 
 **xschem**
 
@@ -92,7 +92,8 @@ xschem
 
 xschem opens its schematic editor (shown here with the `sky130_tests/top.sch` test schematic). Type `quit` in the xschem console to close it.
 
-![xschem](images/02_xschem_sky130_symbols.png)
+<img width="1917" height="1113" alt="Screenshot 2026-10-19 152729" src="https://github.com/user-attachments/assets/de36949f-73b4-40af-be45-3eb52be52f7f" />
+
 
 **netgen**
 
@@ -102,7 +103,8 @@ netgen
 
 netgen opens its console and prints the version (1.5.324). The `format` and `global` warnings are harmless.
 
-![Terminal: magic, xschem and netgen](images/03_tools_terminal.png)
+<img width="1696" height="962" alt="Screenshot 2026-10-19 153636" src="https://github.com/user-attachments/assets/34d981f2-3206-4b5f-9f1d-14b8b7c844ee" />
+
 
 **ngspice**
 
@@ -112,7 +114,8 @@ ngspice
 
 ngspice starts and shows version 45.2 with the `ngspice 2 ->` prompt. Type `quit` to exit.
 
-![ngspice](images/04_ngspice_terminal.png)
+<img width="1147" height="710" alt="Screenshot 2026-10-19 153657" src="https://github.com/user-attachments/assets/f5aed6ab-2b37-4835-8a17-dab8638788f0" />
+
 
 ### 2.2 Create the project directories
 
