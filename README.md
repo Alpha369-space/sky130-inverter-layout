@@ -144,3 +144,72 @@ cd ..
 | `xschem/` | `.spiceinit` | ngspice settings for SKY130 |
 | `mag/` | `.magicrc` | Loads the sky130A technology in Magic |
 | `netgen/` | `setup.tcl` | LVS setup file for SKY130A |
+
+## step 2 - Creating inverter schematic using xschem
+An initial schematic is made by placing a PMOS and an NMOS from the open_pdk library
+The gates, drains, sources and pins are wired together and named to form the inverter
+<img width="1071" height="540" alt="Screenshot 2026-10-18 162134" src="https://github.com/user-attachments/assets/b770f0b7-d0ba-452e-90a4-1fea9cf5a52c" />
+
+The inverter symbol is placed in a new schematic and connected to a supply source and an input source
+The model library and the transient analysis commands are added to run the simulation
+
+<img width="1077" height="440" alt="Screenshot 2026-10-18 162203" src="https://github.com/user-attachments/assets/22d28979-0094-428a-9258-9cec582259df" />
+
+The circuit is netlisted and simulated from xschem, and ngspice plots the input and output waveforms
+The output goes low when the input goes high, which confirms that the circuit works as an inverter
+
+<img width="1888" height="1137" alt="Screenshot 2026-10-18 165439" src="https://github.com/user-attachments/assets/2eeeff08-87e5-4a85-8faa-38ef05bc430e" />
+
+## step 4 - Creating inverter layout in Magic and exporting its netlist
+Importing the netlist into Magic. The xschem netlist is imported into Magic, which places the transistors and creates the pins this are arranged in magic
+
+<img width="1886" height="1096" alt="image" src="https://github.com/user-attachments/assets/c0600c4f-bc07-431a-aae7-6deafffbdca5" />
+
+The params window of each transistor shows its settings, and applying them redraws the device.The NMOS and PMOS are then arranged with the input and output pins on either side.
+
+<img width="1430" height="1127" alt="image" src="https://github.com/user-attachments/assets/4c9af30c-cc11-45ca-bfc5-4987271ac547" />
+
+<img width="1342" height="1090" alt="image" src="https://github.com/user-attachments/assets/5e68bc62-13c2-4854-a04d-db194f88bc96" />
+
+The gates, drains and supplies are joined with metal, and each pin sits on its own metal pad. This gives the finished inverter layout.
+
+<img width="1292" height="1086" alt="image" src="https://github.com/user-attachments/assets/a1e83ea9-4e40-4d3f-9156-45a094eb2a7f" />
+
+### Extract the layout using Magic
+After completing the layout, you need to extract the electrical connectivity from the physical design.
+Open your inverter layout in Magic and use the extraction commands.
+
+```bash
+extract all
+ext2spice lvs
+ext2spice
+```
+
+## step 4 - Run Netgen for LVS verification
+
+This commands runs Netgen LVS (Layout Versus Schematic) to compare the schematic SPICE netlist with the netlist extracted from the Magic layout using SKY130A technology rules.
+It generates lvs_report.txt, which indicates whether the circuits match or identifies differences in their devices and connections
+
+```bash
+netgen -batch lvs \
+"/path/to/schematic.spice inverter" \
+"/path/to/extracted.spice inverter" \
+/usr/local/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl \
+lvs_report.txt
+```
+
+<img width="1145" height="1136" alt="Screenshot 2026-10-19 000525" src="https://github.com/user-attachments/assets/d5230aa1-35c9-4894-b2c6-ba3087ab0c7c" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
