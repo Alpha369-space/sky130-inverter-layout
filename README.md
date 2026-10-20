@@ -82,7 +82,7 @@ magic
 
 Magic opens the layout window. It shows `Technology: minimum` at this point because the SKY130A PDK is not loaded yet.
 
-<img width="1850" height="1113" alt="Screenshot 2026-10-19 151945" src="https://github.com/user-attachments/assets/7f05264a-9a53-4162-953b-d65ccccda016" />
+<img width="1548" height="1080" alt="image" src="https://github.com/user-attachments/assets/1ce171f5-995c-4d57-b50b-6ceb4456e5c3" />
 
 **xschem**
 
