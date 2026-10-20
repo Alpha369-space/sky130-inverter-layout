@@ -5,58 +5,69 @@ Layout correctness is confirmed with netgen LVS, where the extracted layout matc
 The design uses a PMOS of 3 um and an NMOS of 4.5 um total width, with a channel length of 0.18 um and 3 fingers each.
 ## Step 1 - Tool Installation
 
-The following open-source tools were installed on Ubuntu (WSL) to work with the SkyWater SKY130A PDK:
+The following open-source tools are installed on Ubuntu (WSL):
 
 | Tool | Purpose |
 |------|---------|
-| xschem | Schematic capture |
-| ngspice (45.2) | Circuit simulation |
 | Magic | Layout, DRC and extraction |
-| netgen (1.5.324) | Layout vs Schematic (LVS) |
-| open_pdks (SKY130A) | PDK installation and tool setup files |
+| ngspice | Circuit simulation |
+| xschem | Schematic capture |
+| netgen | Layout vs Schematic (LVS) |
 
-### Installation
-
-Install the build dependencies:
+### 1.1 Install dependencies
 
 ```bash
 sudo apt update
-sudo apt install -y build-essential git tcl-dev tk-dev libx11-dev libxpm-dev libcairo2-dev flex bison
+sudo apt install -y build-essential git autoconf automake libtool \
+  tcl-dev tk-dev libx11-dev libxpm-dev libxrender-dev libcairo2-dev \
+  libgl1-mesa-dev libglu1-mesa-dev libxaw7-dev libreadline-dev \
+  libsuitesparse-dev flex bison
 ```
 
-Build xschem, Magic and netgen from source, and install ngspice:
+### 1.2 Magic
 
 ```bash
-git clone <tool-repository-url>
-cd <tool-folder>
+cd ~
+git clone https://github.com/RTimothyEdwards/magic.git
+cd magic
 ./configure
 make
 sudo make install
 ```
 
-Install the SKY130A PDK last, so it can link the xschem and Magic setup files:
+### 1.3 ngspice
 
 ```bash
-git clone https://github.com/RTimothyEdwards/open_pdks.git
-cd open_pdks
-./configure --enable-sky130-pdk
+cd ~
+git clone https://git.code.sf.net/p/ngspice/ngspice ngspice
+cd ngspice
+./autogen.sh
+./configure --with-x --with-readline=yes --enable-xspice --enable-cider --enable-klu
 make
 sudo make install
 ```
 
-### Verification
-
-Each tool opens from the terminal without errors:
+### 1.4 xschem
 
 ```bash
-magic
-xschem
-netgen
-ngspice
+cd ~
+git clone https://github.com/StefanSchippers/xschem.git
+cd xschem
+./configure
+make
+sudo make install
 ```
 
-![Magic launch](images/01_magic_launch.png)
+### 1.5 netgen
 
+```bash
+cd ~
+git clone https://github.com/RTimothyEdwards/netgen.git
+cd netgen
+./configure
+make
+sudo make install
+```
 ![xschem with SKY130 symbols](images/02_xschem_sky130_symbols.png)
 
 ![magic, xschem and netgen](images/03_tools_terminal.png)
