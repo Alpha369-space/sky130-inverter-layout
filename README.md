@@ -68,8 +68,76 @@ cd netgen
 make
 sudo make install
 ```
-![xschem with SKY130 symbols](images/02_xschem_sky130_symbols.png)
+## Step 2 - Checking Tool Installation and Creating Directories
 
-![magic, xschem and netgen](images/03_tools_terminal.png)
+### 2.1 Check that each tool is installed
+
+Run each command in the Ubuntu terminal. Every tool should open without errors.
+
+**Magic**
+
+```bash
+magic
+```
+
+Magic opens the layout window. It shows `Technology: minimum` at this point because the SKY130A PDK is not loaded yet.
+
+![Magic launch](images/01_magic_launch.png)
+
+**xschem**
+
+```bash
+xschem
+```
+
+xschem opens its schematic editor (shown here with the `sky130_tests/top.sch` test schematic). Type `quit` in the xschem console to close it.
+
+![xschem](images/02_xschem_sky130_symbols.png)
+
+**netgen**
+
+```bash
+netgen
+```
+
+netgen opens its console and prints the version (1.5.324). The `format` and `global` warnings are harmless.
+
+![Terminal: magic, xschem and netgen](images/03_tools_terminal.png)
+
+**ngspice**
+
+```bash
+ngspice
+```
+
+ngspice starts and shows version 45.2 with the `ngspice 2 ->` prompt. Type `quit` to exit.
 
 ![ngspice](images/04_ngspice_terminal.png)
+
+### 2.2 Create the project directories
+
+Create the project folder with one subfolder for each tool, and link the SKY130A setup files into each one:
+
+```bash
+cd
+mkdir inverter
+cd inverter
+mkdir xschem
+mkdir mag
+mkdir netgen
+cd xschem
+ln -s /usr/local/share/pdk/sky130A/libs.tech/xschem/xschemrc
+ln -s /usr/local/share/pdk/sky130A/libs.tech/ngspice/spinit .spiceinit
+cd ../mag
+ln -s /usr/local/share/pdk/sky130A/libs.tech/magic/sky130A.magicrc .magicrc
+cd ../netgen
+ln -s /usr/local/share/pdk/sky130A/libs.tech/netgen/sky130A_setup.tcl setup.tcl
+cd ..
+```
+
+| Folder | Linked file | Purpose |
+|--------|-------------|---------|
+| `xschem/` | `xschemrc` | Loads the SKY130 symbols in xschem |
+| `xschem/` | `.spiceinit` | ngspice settings for SKY130 |
+| `mag/` | `.magicrc` | Loads the sky130A technology in Magic |
+| `netgen/` | `setup.tcl` | LVS setup file for SKY130A |
